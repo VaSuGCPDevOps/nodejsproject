@@ -1,21 +1,37 @@
-name: second Github Action
+name: Deploying Code
 on: push #whenever a new commit is pushed to repo
 jobs:
-    test:
-        runs-on: ubuntu-latest #It will not run in the repository, it will run in the folder(workflows) owned by the github
-        steps:
-            #Get the code from github
-            - name: Get the code from repo
-              uses: actions/checkout@v3
+  test:
+    runs-on: ubuntu-latest #It will not run in the repository, it will run in the folder(workflows) owned by the github
+    steps:
+      #Get the code from github
+      - name: Get the code from repo
+        uses: actions/checkout@v3
             
-            #we need to make sure nodejs is installed and we need to install all the dependencies of this project.
-            #By default all the softwares, dependencies will be installed in the runners
-            #To use this, search github actions node js installation go to related sites and copy it.
-            - name: Install nodejs
-              uses: actions/setup-node@v3  
-              with:
-                node-version: 18
-            - name: Install dependencies
-              run: npm ci #ci install the dependencies versions which in the wodking directory  
-            - name: run tests
-              run: npm test  
+      #we need to make sure nodejs is installed and we need to install all the dependencies of this project.
+      #By default all the softwares, dependencies will be installed in the runners
+      #To use this, search github actions node js installation go to related sites and copy it.
+      - name: Install nodejs
+        uses: actions/setup-node@v3  
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci #ci install the dependencies versions which in the wodking directory  
+      - name: run tests
+        run: npm test  
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the code from repo
+        uses: actions/checkout@v3
+      - name: Install nodejs
+        uses: actions/setup-node@v3  
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci 
+      - name: Build the code
+        run: npm run build
+      - name: Deploy
+        run: echo "Deploying..."
+        
