@@ -12,5 +12,10 @@ jobs:
             #By default all the softwares, dependencies will be installed in the runners
             #To use this, search github actions node js installation go to related sites and copy it.
             - name: Install nodejs
-              uses: actions/setup-node@v3    
-              
+              uses: actions/setup-node@v3  
+              with:
+                node-version: 18
+            - name: Install dependencies
+              run: npm ci #ci install the dependencies versions which in the wodking directory  
+            - name: run tests
+              run: npm test  
