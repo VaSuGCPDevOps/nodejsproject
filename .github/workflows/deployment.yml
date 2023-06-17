@@ -1,5 +1,5 @@
 name: Deploying Code
-on: push #whenever a new commit is pushed to repo
+on: [push,workflow_dispatch] #whenever a new commit is pushed to repo
 jobs:
   test:
     runs-on: ubuntu-latest #It will not run in the repository, it will run in the folder(workflows) owned by the github
